@@ -24,16 +24,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Applications![0].Company)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CompanySortParm"]">@Html.DisplayNameFor(model => model.Applications![0].Company)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Applications![0].Role)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParm"]">@Html.DisplayNameFor(model => model.Applications![0].Role)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Applications![0].Date)
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Applications![0].Date)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Applications![0].Resource)
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["ResourceSortParm"]">@Html.DisplayNameFor(model => model.Applications![0].Resource)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Applications![0].Status)

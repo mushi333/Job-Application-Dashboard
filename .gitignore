@@ -44,3 +44,5 @@ msbuild.wrn
 
 # Other
 sqlite.db
+sqlite.db-wal
+sqlite.db-shm

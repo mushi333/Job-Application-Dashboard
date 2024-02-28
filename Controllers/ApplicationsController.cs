@@ -16,7 +16,7 @@ namespace JobApplicationDashboard.Controllers
         }
 
         // GET: Application
-        public async Task<IActionResult> Index(string status, string searchString)
+        public async Task<IActionResult> Index(string status, string searchString, string sortOrder)
         {
             if (_context.Application == null)
             {
@@ -32,6 +32,42 @@ namespace JobApplicationDashboard.Controllers
             if (!string.IsNullOrEmpty(status))
             {
                 applications = applications.Where(a => a.Status == status);
+            }
+
+            ViewData["CompanySortParm"] = sortOrder == "company" ? "company-desc" : "company";
+            ViewData["RoleSortParm"] = sortOrder == "role" ? "role-desc" : "role";
+            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
+            ViewData["ResourceSortParm"] = sortOrder == "resource" ? "resource-desc" : "resource";
+
+            switch (sortOrder)
+            {
+                case "company":
+                    applications = applications.OrderBy(a => a.Company);
+                    break;
+                case "company_desc":
+                    applications = applications.OrderByDescending(a => a.Company);
+                    break;
+                case "role":
+                    applications = applications.OrderBy(a => a.Role);
+                    break;
+                case "role_desc":
+                    applications = applications.OrderByDescending(a => a.Role);
+                    break;
+                case "date":
+                    applications = applications.OrderBy(a => a.Date);
+                    break;
+                case "date_desc":
+                    applications = applications.OrderByDescending(a => a.Date);
+                    break;
+                case "resource":
+                    applications = applications.OrderBy(a => a.Resource);
+                    break;
+                case "resource_desc":
+                    applications = applications.OrderByDescending(a => a.Resource);
+                    break;
+                default:
+                    applications = applications.OrderBy(a => a.Date);
+                    break;
             }
 
             if (!string.IsNullOrEmpty(searchString))
