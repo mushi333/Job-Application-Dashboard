@@ -24,16 +24,16 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["CompanySortParm"]">@Html.DisplayNameFor(model => model.Applications![0].Company)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CompanySortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Company)</a>
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParm"]">@Html.DisplayNameFor(model => model.Applications![0].Role)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Role)</a>
             </th>
             <th>
-                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.Applications![0].Date)</a>
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Date)</a>
             </th>
             <th>
-                 <a asp-action="Index" asp-route-sortOrder="@ViewData["ResourceSortParm"]">@Html.DisplayNameFor(model => model.Applications![0].Resource)</a>
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["ResourceSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Resource)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Applications![0].Status)
@@ -75,3 +75,7 @@
     }
     </tbody>
 </table>
+@if (Model.Page > 0) {
+@Html.ActionLink("Back", "Index", new { page = Model.Page > 0 ? Model.Page - 1: Model.Page })
+}
+@Html.ActionLink("Next", "Index", new { page = Model.Page + 1 })

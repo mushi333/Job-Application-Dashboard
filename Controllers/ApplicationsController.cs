@@ -16,7 +16,12 @@ namespace JobApplicationDashboard.Controllers
         }
 
         // GET: Application
-        public async Task<IActionResult> Index(string status, string searchString, string sortOrder)
+        public async Task<IActionResult> Index(
+            string status,
+            string searchString,
+            string sortOrder,
+            int page = Constants.INITIAL_PAGE
+        )
         {
             if (_context.Application == null)
             {
@@ -27,6 +32,7 @@ namespace JobApplicationDashboard.Controllers
                 from s in _context.Application
                 orderby s.Status
                 select s.Status;
+
             var applications = from a in _context.Application select a;
 
             if (!string.IsNullOrEmpty(status))
@@ -34,10 +40,10 @@ namespace JobApplicationDashboard.Controllers
                 applications = applications.Where(a => a.Status == status);
             }
 
-            ViewData["CompanySortParm"] = sortOrder == "company" ? "company-desc" : "company";
-            ViewData["RoleSortParm"] = sortOrder == "role" ? "role-desc" : "role";
-            ViewData["DateSortParm"] = sortOrder == "date" ? "date_desc" : "date";
-            ViewData["ResourceSortParm"] = sortOrder == "resource" ? "resource-desc" : "resource";
+            ViewData["CompanySortParam"] = sortOrder == "company" ? "company-desc" : "company";
+            ViewData["RoleSortParam"] = sortOrder == "role" ? "role-desc" : "role";
+            ViewData["DateSortParam"] = sortOrder == "date" ? "date_desc" : "date";
+            ViewData["ResourceSortParam"] = sortOrder == "resource" ? "resource-desc" : "resource";
 
             switch (sortOrder)
             {
@@ -83,7 +89,11 @@ namespace JobApplicationDashboard.Controllers
             var applicationsViewModel = new ApplicationsListViewModel
             {
                 Statuses = new SelectList(await statusQuery.Distinct().ToListAsync()),
-                Applications = await applications.ToListAsync()
+                Page = page,
+                Applications = await applications
+                    .Skip(Constants.ENTRIES_PER_PAGE * page)
+                    .Take(Constants.ENTRIES_PER_PAGE)
+                    .ToListAsync()
             };
 
             return View(applicationsViewModel);

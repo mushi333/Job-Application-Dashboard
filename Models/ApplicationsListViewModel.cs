@@ -8,4 +8,5 @@ public class ApplicationsListViewModel
     public SelectList? Statuses { get; set; }
     public string? Status { get; set; }
     public string? SearchString { get; set; }
+    public int? Page { get; set; } = Constants.INITIAL_PAGE;
 }
