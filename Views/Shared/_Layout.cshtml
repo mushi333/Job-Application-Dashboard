@@ -8,14 +8,20 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/\@@picocss/pico@2/css/pico.green.min.css"
     />
-    <link rel="stylesheet" href="~/JobApplicationDashboard.styles.css" asp-append-version="true" />
+    <html data-theme="dark" />
+    <style>
+        a {
+            text-decoration: none;
+        }
+        button > a {
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main role="main">
+        @RenderBody()
+    </main>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

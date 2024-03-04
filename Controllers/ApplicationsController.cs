@@ -28,10 +28,7 @@ namespace JobApplicationDashboard.Controllers
                 return Problem("Entity set 'JobApplicationContext.Application' is null.");
             }
 
-            IQueryable<string> statusQuery =
-                from s in _context.Application
-                orderby s.Status
-                select s.Status;
+            IQueryable<string> statusQuery = from s in _context.Application select s.Status;
 
             var applications = from a in _context.Application select a;
 
