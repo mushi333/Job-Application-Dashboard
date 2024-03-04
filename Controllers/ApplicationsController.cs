@@ -88,7 +88,7 @@ namespace JobApplicationDashboard.Controllers
 
             var applicationsViewModel = new ApplicationsListViewModel
             {
-                Statuses = new SelectList(await statusQuery.ToListAsync()),
+                Statuses = new SelectList(await statusQuery.Distinct().ToListAsync()),
                 Page = page,
                 Applications = await applications
                     .Skip(Constants.ENTRIES_PER_PAGE * page)
