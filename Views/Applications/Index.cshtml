@@ -45,7 +45,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Applications![0].Other)
                     </th>
-                    <th></th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,9 +70,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Other)
                     </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <td styles="overflow-x: auto;">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <br/>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> <br/>
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
