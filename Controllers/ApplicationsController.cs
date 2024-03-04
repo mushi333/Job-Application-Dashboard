@@ -40,10 +40,10 @@ namespace JobApplicationDashboard.Controllers
                 applications = applications.Where(a => a.Status == status);
             }
 
-            ViewData["CompanySortParam"] = sortOrder == "company" ? "company-desc" : "company";
-            ViewData["RoleSortParam"] = sortOrder == "role" ? "role-desc" : "role";
+            ViewData["CompanySortParam"] = sortOrder == "company" ? "company_desc" : "company";
+            ViewData["RoleSortParam"] = sortOrder == "role" ? "role_desc" : "role";
             ViewData["DateSortParam"] = sortOrder == "date" ? "date_desc" : "date";
-            ViewData["ResourceSortParam"] = sortOrder == "resource" ? "resource-desc" : "resource";
+            ViewData["ResumeSortParam"] = sortOrder == "resume" ? "resume_desc" : "resume";
 
             switch (sortOrder)
             {
@@ -65,11 +65,11 @@ namespace JobApplicationDashboard.Controllers
                 case "date_desc":
                     applications = applications.OrderByDescending(a => a.Date);
                     break;
-                case "resource":
-                    applications = applications.OrderBy(a => a.Resource);
+                case "resume":
+                    applications = applications.OrderBy(a => a.Resume);
                     break;
-                case "resource_desc":
-                    applications = applications.OrderByDescending(a => a.Resource);
+                case "resume_desc":
+                    applications = applications.OrderByDescending(a => a.Resume);
                     break;
                 default:
                     applications = applications.OrderBy(a => a.Date);
@@ -82,13 +82,13 @@ namespace JobApplicationDashboard.Controllers
                     a =>
                         a.Company!.Contains(searchString)
                         || a.Role!.Contains(searchString)
-                        || a.Resource!.Contains(searchString)
+                        || a.Resume!.Contains(searchString)
                 );
             }
 
             var applicationsViewModel = new ApplicationsListViewModel
             {
-                Statuses = new SelectList(await statusQuery.Distinct().ToListAsync()),
+                Statuses = new SelectList(await statusQuery.ToListAsync()),
                 Page = page,
                 Applications = await applications
                     .Skip(Constants.ENTRIES_PER_PAGE * page)
@@ -128,7 +128,7 @@ namespace JobApplicationDashboard.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Id,Company,Role,Date,Resource,Status,Other")] Application application
+            [Bind("Id,Company,Role,Date,Resume,Status,Other")] Application application
         )
         {
             if (ModelState.IsValid)
@@ -163,7 +163,7 @@ namespace JobApplicationDashboard.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(
             int id,
-            [Bind("Id,Company,Role,Date,Resource,Status,Other")] Application application
+            [Bind("Id,Company,Role,Date,Resume,Status,Other")] Application application
         )
         {
             if (id != application.Id)

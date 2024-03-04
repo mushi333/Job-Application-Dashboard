@@ -20,12 +20,11 @@ public class Application
 
     [Required]
     [StringLength(255, MinimumLength = 3)]
-    public string? Resource { get; set; }
+    public string? Resume { get; set; }
 
     [Required]
     public string? Status { get; set; }
 
-    [Required]
     [StringLength(1024)]
     public string? Other { get; set; }
 }

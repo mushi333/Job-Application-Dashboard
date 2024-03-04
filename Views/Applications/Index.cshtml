@@ -33,7 +33,7 @@
                  <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Date)</a>
             </th>
             <th>
-                 <a asp-action="Index" asp-route-sortOrder="@ViewData["ResourceSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Resource)</a>
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["ResumeSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Resume)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Applications![0].Status)
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Resource)
+                @Html.DisplayFor(modelItem => item.Resume)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
@@ -76,6 +76,8 @@
     </tbody>
 </table>
 @if (Model.Page > 0) {
-@Html.ActionLink("Back", "Index", new { page = Model.Page > 0 ? Model.Page - 1: Model.Page })
+    @Html.ActionLink("Back", "Index", new { page = Model.Page > 0 ? Model.Page - 1: Model.Page })
 }
-@Html.ActionLink("Next", "Index", new { page = Model.Page + 1 })
+@if (Model.Page * Constants.ENTRIES_PER_PAGE < Model.Applications.Count()) {
+    @Html.ActionLink("Next", "Index", new { page = Model.Page + 1 })
+}
