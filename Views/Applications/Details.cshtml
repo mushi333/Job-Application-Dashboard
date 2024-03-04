@@ -8,6 +8,10 @@
     </ul>
     <ul>
         <button>
+            <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+        </button>
+        <div style="border-left: 1px solid #fff; height: 20px; margin: 0 10px;"></div>
+        <button>
             <a asp-action="Index">Back</a>
         </button>
     </ul>
@@ -53,7 +57,4 @@
             @Html.DisplayFor(model => model.Other)
         </dd>
     </dl>
-    <button>
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
-    </button>   
 </div>
