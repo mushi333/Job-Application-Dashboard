@@ -6,21 +6,6 @@
             <li><strong>Home</strong></li>
         </ul>
         <ul>
-            @if (Model.Page > 0) {
-                <button>
-                    @Html.ActionLink("Back", "Index", new { page = Model.Page > 0 ? Model.Page - 1: Model.Page })
-                </button>
-            }
-            @if (Model.Page > 0 && Model.Applications.Count() >= Constants.ENTRIES_PER_PAGE) {
-                <div style="border-left: 1px solid #fff; height: 20px; margin: 0 10px;"></div>
-            }
-            @if (Model.Applications.Count() >= Constants.ENTRIES_PER_PAGE) {
-                <button>
-                @Html.ActionLink("Next", "Index", new { page = Model.Page + 1 })
-                </button>
-            }  
-        </ul>
-        <ul>
             <li>
                 <button>
                     <a asp-action="Create">Create New</a>
@@ -39,7 +24,7 @@
     </form>
 
     <div class="container overflow-auto table">
-        <table class="table">
+        <table>
             <thead>
                 <tr>
                     <th>
@@ -95,4 +80,24 @@
             </tbody>
         </table>
     </div>
+
+    <nav>
+        <ul></ul>
+        <ul>
+            @if (Model.Page > 0) {
+                <button>
+                    @Html.ActionLink("Back", "Index", new { page = Model.Page > 0 ? Model.Page - 1: Model.Page })
+                </button>
+            }
+            @if (Model.Page > 0 && Model.Applications.Count() >= Constants.ENTRIES_PER_PAGE) {
+                <div style="border-left: 1px solid #fff; height: 20px; margin: 0 10px;"></div>
+            }
+            @if (Model.Applications.Count() >= Constants.ENTRIES_PER_PAGE) {
+                <button>
+                @Html.ActionLink("Next", "Index", new { page = Model.Page + 1 })
+                </button>
+            }  
+        </ul>
+        <ul></ul>
+    </nav>
 </div>
