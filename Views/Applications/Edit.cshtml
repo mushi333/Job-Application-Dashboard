@@ -1,12 +1,18 @@
 @model JobApplicationDashboard.Models.Application
 
-@{
-    ViewData["Title"] = "Edit";
-}
+<nav class="container">
+    <ul>
+        <li>
+            <strong>Edit</strong>
+        </li>
+    </ul>
+    <ul>
+        <button>
+            <a asp-action="Index">Back</a>
+        </button>
+    </ul>
+</nav>
 
-<h1>Edit</h1>
-
-<h4>Application</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -48,10 +54,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

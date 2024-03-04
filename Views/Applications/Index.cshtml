@@ -1,83 +1,93 @@
 @model JobApplicationDashboard.Models.ApplicationsListViewModel
 
-@{
-    ViewData["Title"] = "Index";
-}
+<div class="container">
+    <nav>
+        <ul>
+            <li><strong>Home</strong></li>
+        </ul>
+        <ul>
+            <li>
+                <button>
+                    <a asp-action="Create">Create New</a>
+                </button>
+            </li>
+        </ul>
+    </nav>
+    <form asp-controller="Applications" asp-action="Index" method="get">
+        <p>
+            Status: <select asp-for="Status" asp-items="Model.Statuses">
+                <option value="">All</option>
+            </select>
+            Search: <input type="text" asp-for="SearchString" />
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-<form asp-controller="Applications" asp-action="Index" method="get">
-    <p>
-        Status: <select asp-for="Status" asp-items="Model.Statuses">
-            <option value="">All</option>
-        </select>
-        Search: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Filter" />
-    </p>
-</form>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["CompanySortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Company)</a>
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Role)</a>
-            </th>
-            <th>
-                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Date)</a>
-            </th>
-            <th>
-                 <a asp-action="Index" asp-route-sortOrder="@ViewData["ResumeSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Resume)</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Applications![0].Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Applications![0].Other)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Applications!)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Company)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Resume)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Other)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    <div class="container overflow-auto table">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["CompanySortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Company)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["RoleSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Role)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Date)</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["ResumeSortParam"]">@Html.DisplayNameFor(model => model.Applications![0].Resume)</a>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applications![0].Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Applications![0].Other)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Applications!)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Company)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Resume)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Other)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    @if (Model.Page > 0) {
+        <button>
+            @Html.ActionLink("Back", "Index", new { page = Model.Page > 0 ? Model.Page - 1: Model.Page })
+        </button>
     }
-    </tbody>
-</table>
-@if (Model.Page > 0) {
-    @Html.ActionLink("Back", "Index", new { page = Model.Page > 0 ? Model.Page - 1: Model.Page })
-}
-@if (Model.Page * Constants.ENTRIES_PER_PAGE < Model.Applications.Count()) {
-    @Html.ActionLink("Next", "Index", new { page = Model.Page + 1 })
-}
+    @if (Model.Applications.Count() >= Constants.ENTRIES_PER_PAGE) {
+        <button>
+           @Html.ActionLink("Next", "Index", new { page = Model.Page + 1 })
+        </button>
+    }  
+</div>

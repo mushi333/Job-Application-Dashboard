@@ -1,13 +1,19 @@
 @model JobApplicationDashboard.Models.Application
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
+<nav class="container">
+    <ul>
+        <li>
+            <strong>More Details</strong>
+        </li>
+    </ul>
+    <ul>
+        <button>
+            <a asp-action="Index">Back</a>
+        </button>
+    </ul>
+</nav>
 
 <div>
-    <h4>Application</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -47,8 +53,7 @@
             @Html.DisplayFor(model => model.Other)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <button>
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+    </button>   
 </div>
