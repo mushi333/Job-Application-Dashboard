@@ -46,3 +46,4 @@ msbuild.wrn
 sqlite.db
 sqlite.db-wal
 sqlite.db-shm
+appsettings.Production.json

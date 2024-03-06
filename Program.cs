@@ -3,17 +3,15 @@ using JobApplicationDashboard.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder
-    .Services
-    .AddDbContext<JobApplicationDashboardContext>(
-        options =>
-            options.UseSqlite(
-                builder.Configuration.GetConnectionString("JobApplicationDashboardContext")
-                    ?? throw new InvalidOperationException(
-                        "Connection string 'JobApplicationDashboardContext' not found."
-                    )
-            )
-    );
+if (builder.Environment.IsDevelopment())
+{
+    builder
+        .Services
+        .AddDbContext<JobApplicationDashboardContext>(
+            options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+        );
+}
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
