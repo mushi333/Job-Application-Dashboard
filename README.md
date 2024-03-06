@@ -4,6 +4,8 @@
 
 This job application dashboard was made to keep track of my job applications in 2024. The application runs locally on my laptop.
 
+A live demo can be seen [here](https://job-application-dashboard.fly.dev/). The data gets reset everyday.
+
 ## Tech Stack
 
 Written in:

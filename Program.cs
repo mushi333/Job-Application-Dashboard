@@ -3,20 +3,27 @@ using JobApplicationDashboard.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-if (builder.Environment.IsDevelopment())
-{
-    builder
-        .Services
-        .AddDbContext<JobApplicationDashboardContext>(
-            options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
-        );
-}
+
+builder
+    .Services
+    .AddDbContext<JobApplicationDashboardContext>(
+        options => options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// Create demo SQLite for production
+if (app.Environment.IsProduction())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var db = app.Services.GetRequiredService<JobApplicationDashboardContext>();
+        db.Database.Migrate();
+    }
+}
 
 using (var scope = app.Services.CreateScope())
 {
